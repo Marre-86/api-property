@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Houses API
+  description: Artem Pokhiliuk's training progect 
+  version: 1.0.0
+servers:
+  - url: https://houses-api-pokhiliuk.up.railway.app/api
+    description: Main (production) server
+  - url: localhost:8000/api/v1
+    description: Internal staging server for testing
+paths:
+  /houses:
+    get:
+      summary: Returns a list of houses.
+      description:  Returns a list of all houses in the database.
+      responses:
+        '200':    # status code
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+      parameters:
+        - name: filter[name]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: string
+        - name: filter[price-gte]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+        - name: filter[price-lte]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+        - name: filter[bedrooms]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+        - name: filter[bathrooms]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+        - name: filter[storeys]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+        - name: filter[garages]
+          in: query
+          description: Selection of the houses those names have been specified by a user
+          required: false
+          schema:
+            type: integer
+    post:
+      summary: Adds a new house.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/House'
+      responses: 
+        '201':
+          description: Created
+  /houses/{houseId}:
+    get:
+      summary: Returns a house by ID.
+      parameters:
+        - name: houseId
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+components:
+  schemas:
+    House:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        name:
+          type: string
+          example: The Fresco
+        price: 
+          type: integer
+          example: 999993
+        bedrooms: 
+          type: integer
+          example: 2
+        bathrooms: 
+          type: integer
+          example: 2
+        storeys: 
+          type: integer
+          example: 2
+        garages: 
+          type: integer
+          example: 2
+      required:
+        - id
+        - name
