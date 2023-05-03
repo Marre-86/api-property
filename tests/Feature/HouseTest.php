@@ -44,4 +44,70 @@ class HouseTest extends TestCase
                 'name' => 'The Victoria',
         ]);
     }
+
+    public function testSearchQuery1(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+
+        $response = $this->get('/api/v1/houses?filter[price-gte]=500000');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(3)
+            ->assertExactJson(House::where('price', '>', 500000)->get()->toArray());
+    }
+
+    public function testSearchQuery2(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+
+        $response = $this->get('/api/v1/houses?filter[price-lte]=400000&filter[garages]=2&filter[bathrooms]=2');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(3)
+            ->assertExactJson(House::where('price', '<', 400000)
+                                    ->where('garages', 2)
+                                    ->where('bathrooms', 2)
+                                    ->get()->toArray());
+    }
+
+    public function testSearchQuery3(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+
+        $response = $this->get('/api/v1/houses?filter[name]=Sky');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(1)
+            ->assertExactJson(House::where('name', 'like', '%Sky%')->get()->toArray());
+    }
+
+    public function testSearchQuery4(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+
+        $response = $this->get('/api/v1/houses?filter[bedrooms]=4&filter[storeys]=1');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(1)
+            ->assertExactJson(House::where('bedrooms', 4)->where('storeys', 1)->get()->toArray());
+    }
+
+    public function testSearchQuery5(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+   // в будущем нужно разобраться как описывать пустые респонсы в Openapi и удалить нижеследующую строчку
+        $this->withoutResponseValidation();
+        $response = $this->get('/api/v1/houses?filter[name]=Slava');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonCount(1)
+            ->assertJson([
+                'message' => 'No items with these parameters.'
+        ]);
+    }
 }

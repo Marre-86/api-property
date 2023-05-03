@@ -48,7 +48,7 @@ class HouseController extends Controller
                     'message' => 'No items with these parameters.'
                 ], 200);
             }
-            return "<pre>" . json_encode(json_decode($houses), JSON_PRETTY_PRINT) . "</pre>";
+            return $houses;
         }
         return House::all();
     }
