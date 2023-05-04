@@ -1,15 +1,16 @@
 <template>
-    <h1 class="display-3">Hello, world!</h1>
-<p class="lead">This is a simple hero unit!</p>
+    <img style="width:12rem; margin:10px" src="/pics/villa-verify-logo.png" alt="logo">
+<h1 style="display:inline-block; margin-left:5rem">Real Property Register</h1>
 <hr class="my-4">
-  <HouseList />
+  <Search /> 
 </template>
+
 <script>
-import HouseList from './components/HouseList.vue'
+import Search from './components/Search.vue'
 
 export default {
   components: {
-    HouseList
+    Search
   }
 }
 </script>
