@@ -1,4 +1,6 @@
 <template>
+  <Post @houseAdded="handleHouseAdded" /> 
+  <hr class="borderline">
   <div>
     <div class="searchDropdown">
       <p class="caption">---Name  ---</p>
@@ -14,8 +16,6 @@
       <input  v-model="filter_price_lte" type="range" class="form-range" min="0" max="1000000" step="100000">
       <p style="text-align: center;">{{ filter_price_lte }}</p>
     </div>
-  </div>
-  <div style="clear:both">
     <div class="searchDropdown">
       <p class="caption">---Bedrooms---</p>
       <select v-model="filter_bedrooms" class="form-select form-control">
@@ -51,20 +51,27 @@
       </select>
     </div>
   </div>
-  <hr style="clear:both">
-
-<HouseList :api_url="`api/v1/houses?${filter_name ? `filter[name]=${filter_name}&` : ''}${filter_price_gte ? `filter[price-gte]=${filter_price_gte}&` : ''}${filter_price_lte ? `filter[price-lte]=${filter_price_lte}&` : ''}${filter_bedrooms}${filter_bathrooms}${filter_storeys}${filter_garages}`"/>
+  <hr class="borderline" style="clear:both">
+ <HouseList :key="newHouseAdded" :api_url="`api/v1/houses?${filter_name ? `filter[name]=${filter_name}&` : ''}${filter_price_gte ? `filter[price-gte]=${filter_price_gte}&` : ''}${filter_price_lte ? `filter[price-lte]=${filter_price_lte}&` : ''}${filter_bedrooms}${filter_bathrooms}${filter_storeys}${filter_garages}`"/>
 </template>
  
 <script>
+import Post from './Post.vue'
 import HouseList from './HouseList.vue'
 
 export default {
   components: {
+    Post, 
     HouseList
+  },
+  methods: {
+    handleHouseAdded() {
+      this.newHouseAdded += 1;
+    }
   },
   data() {
       return {
+        newHouseAdded: 0,
         api_url: "",
         filter_name: "",
         filter_price_gte: "",
@@ -85,7 +92,7 @@ export default {
   margin-left:20px;
 }
   .searchDropdown {
-    width: 13rem;
+    width: 11rem;
     margin-left:10px;
     margin-bottom:16px;
     float:left;

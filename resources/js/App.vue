@@ -1,8 +1,19 @@
 <template>
-    <img style="width:12rem; margin:10px" src="/pics/villa-verify-logo.png" alt="logo">
-<h1 style="display:inline-block; margin-left:5rem">Real Property Register</h1>
-<hr class="my-4">
-  <Search /> 
+    <a href="/">
+      <img href="/" src="/pics/villa-verify-logo.png" alt="logo" style="width:12rem; margin:10px">
+    </a>
+    <div class="wrapper">
+      <div class="wrapper-in"><h1 style="margin-left:1rem">Real Property Register</h1></div>
+      <div>
+        <p>This page is a facade of <b>Villa Verify</b> public API, providing access to  
+          its real property register. You can download OpenAPI definitions in YAML by 
+            <a href="/openapi.yaml">clicking here</a>.</p>
+      </div>
+      
+    </div>
+    
+
+    <Search /> 
 </template>
 
 <script>
@@ -14,3 +25,22 @@ export default {
   }
 }
 </script>
+<style>
+.borderline {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+.wrapper {
+  vertical-align:middle; 
+  width:32rem;
+  padding: 0 20px;
+  display:inline-block;
+}
+.wrapper-in {
+  border-right: 2px solid;
+  padding: 10px;
+  box-shadow: 6px 4px 8px;
+  margin-bottom:20px;
+}
+</style>
