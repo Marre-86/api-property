@@ -73,7 +73,17 @@ paths:
               $ref: '#/components/schemas/House'
       responses: 
         '201':
-          description: Created
+          description: New house has been added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+        '400':
+          description: Bad request. House has not been added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
   /houses/{houseId}:
     get:
       summary: Returns a house by ID.
@@ -92,6 +102,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/House'
+    put:
+      summary: Updates chosen house.
+      requestBody:
+        required: true
+      responses: 
+        '200':
+          description: House has been updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/House'
+        '404':
+          description: Bad request. House has not been upddated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+    delete:
+      summary: Deletes chosen house.
+      responses: 
+        '204':
+          description: House has been deleted
+        '404':
+          description: Bad request. House has not been deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
 components:
   schemas:
     House:
@@ -119,5 +158,14 @@ components:
           type: integer
           example: 2
       required:
-        - id
         - name
+        - price
+        - bedrooms
+        - bathrooms
+        - storeys
+        - garages
+    BadRequest:
+      type: object
+      properties:
+        message:
+          type: string

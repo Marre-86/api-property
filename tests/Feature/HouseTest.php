@@ -110,4 +110,85 @@ class HouseTest extends TestCase
                 'message' => 'No items with these parameters.'
         ]);
     }
+
+    public function testAddHouse(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+        $newHouse = [
+            'name' => 'The Jarro',
+            'price' => 667676,
+            'bedrooms' => 4,
+            'bathrooms' => 2,
+            'storeys' => 1,
+            'garages' => 1,
+        ];
+
+        $response = $this->postJson('/api/v1/houses', $newHouse);
+
+        $response
+            ->assertStatus(201)
+            ->assertJson($newHouse);
+    }
+
+    public function testAddHouseBadRequest(): void
+    {
+        // отключаем валидацию реквеста, поскольку смысл теста - именно проверить не соответсующий API реквест
+        $this->withoutRequestValidation();
+
+        $this->seed(HousesTableSeeder::class);
+        $newHouse = [
+            'name' => 'The Correo',
+            'price' => 667676,
+            'bedrooms' => 4,
+        ];
+
+        $response = $this->postJson('/api/v1/houses', $newHouse);
+
+        $response
+            ->assertStatus(400);
+    }
+
+    public function testUpdateHouse(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+        $updatedValues = [
+            'name' => 'The Kyiv',
+            'price' => 8888,
+        ];
+
+        $response = $this->putJson('/api/v1/houses/9', $updatedValues);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson($updatedValues);
+    }
+
+    public function testUpdateHouseWrongId(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+        $updatedValues = [
+            'name' => 'The Lviv',
+            'price' => 432,
+        ];
+
+        $response = $this->putJson('/api/v1/houses/978', $updatedValues);
+
+        $response
+            ->assertStatus(404);
+    }
+
+    public function testDeleteHouse(): void
+    {
+        $this->seed(HousesTableSeeder::class);
+
+        $response = $this->deleteJson('/api/v1/houses/9');
+
+        $response
+            ->assertStatus(204);
+
+        $this->assertDatabaseCount('houses', 8);
+        $this->assertDatabaseMissing('houses', [
+            'name' => 'The Geneva',
+        ]);
+    }
 }

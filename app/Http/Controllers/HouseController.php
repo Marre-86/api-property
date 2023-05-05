@@ -60,7 +60,13 @@ class HouseController extends Controller
 
     public function store(Request $request)
     {
-        $house = House::create($request->all());
+        try {
+            $house = House::create($request->all());
+        } catch (\Illuminate\Database\QueryException $exception) {
+            return response()->json([
+                'message' => 'Bad request. Probably not enough of required fields'
+            ], 400);
+        }
 
         return response()->json($house, 201);
     }
