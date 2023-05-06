@@ -8,20 +8,19 @@
         <p>This page is a facade of <b>Villa Verify</b> public API, providing access to  
           its real property register. You can download OpenAPI definitions in YAML by 
             <a href="/openapi.yaml">clicking here</a>.</p>
-      </div>
-      
+      </div>      
     </div>
-    
-
-    <Search /> 
+    <Body /> 
+    <p style="margin-left:15px">Created by <a href="https://www.linkedin.com/in/artem-pokhiliuk/">Artem Pokhiliuk</a>.</p>
+    <p style="margin-left:15px; margin-top:-15px">Source code - <a href="https://github.com/Marre-86/api-property">github</a>.</p>
 </template>
 
 <script>
-import Search from './components/Search.vue'
+import Body from './components/Body.vue'
 
 export default {
   components: {
-    Search
+    Body
   }
 }
 </script>

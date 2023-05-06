@@ -52,7 +52,8 @@
     </div>
   </div>
   <hr class="borderline" style="clear:both">
- <HouseList :key="newHouseAdded" :api_url="`api/v1/houses?${filter_name ? `filter[name]=${filter_name}&` : ''}${filter_price_gte ? `filter[price-gte]=${filter_price_gte}&` : ''}${filter_price_lte ? `filter[price-lte]=${filter_price_lte}&` : ''}${filter_bedrooms}${filter_bathrooms}${filter_storeys}${filter_garages}`"/>
+  <HouseList :key="newHouseAdded" :api_url="`api/v1/houses?${filter_name ? `filter[name]=${filter_name}&` : ''}${filter_price_gte ? `filter[price-gte]=${filter_price_gte}&` : ''}${filter_price_lte ? `filter[price-lte]=${filter_price_lte}&` : ''}${filter_bedrooms}${filter_bathrooms}${filter_storeys}${filter_garages}`"/>
+  <hr class="borderline" style="clear:both">
 </template>
  
 <script>
