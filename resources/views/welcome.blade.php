@@ -6,9 +6,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="csrf-param" content="_token" />
         <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
-        <title>Vue Front End For A Laravel API</title>
+        <title>Villa Verify - Real Property Register</title>
         <!-- Scripts -->
-        @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/scss/app.scss'])
+        @vite(['resources/js/app.js', 'resources/scss/app.scss'])
     </head>
     <body class="container-fluid">
         <div id="app">
