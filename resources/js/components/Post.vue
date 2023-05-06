@@ -33,6 +33,7 @@
                 <div class="formSubmit">
                     <button class="btn btn-primary">Submit</button>
                 </div>
+                <FlashMessage :flashShoots="flashShoots" @flashoffed="handleFlashOffed" />
               </div>
             </form>
     </div>
@@ -41,10 +42,15 @@
 <script>
 
 import axios from 'axios';
+import FlashMessage from './FlashMessage.vue'
 
 export default {
+    components: {
+      FlashMessage
+    },
     data(){
         return{
+            flashShoots: 0,
             api_url: "",
             form: {
                 name: '',
@@ -61,13 +67,17 @@ export default {
             axios.post('api/v1/houses', this.form)
                  .then((res) => {
                   this.$emit("house-added")
+                  this.flashShoots = 'success';
                  })
                  .catch((error) => {
-                     // error.response.status Check status code
+                  this.flashShoots = 'failure';
                  }).finally(() => {
                      //Perform action in always
                  });
         },
+        handleFlashOffed() {
+          this.flashShoots = 0;
+        }
     }
 }
   
