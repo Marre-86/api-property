@@ -42,4 +42,9 @@ export default {
   box-shadow: 6px 4px 8px;
   margin-bottom:20px;
 }
+@media (max-width: 1250px) {
+  .wrapper {
+  width:22rem;
+}
+}
 </style>
